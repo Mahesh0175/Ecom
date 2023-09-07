@@ -42,18 +42,18 @@ const Footer = () => {
                             <div className="footer-social">
                                 <h3>Follow Us</h3>
                                 <div className="footer-social--icons">
-                                    <div><a rel="noreferrer" href="https://discord.com/channels/@mahesh0222"
+                                    <div><a rel="noopener noreferrer" href="https://discord.com/channels/@mahesh0222"
                                         target="_blank">
                                         <FaDiscord className="icons" />
                                     </a>
                                     </div>
-                                    <div><a rel="noreferrer" href="https://www.instagram.com/mahesh_patil_2.0/"
+                  <div><a rel="noopener noreferrer" href="https://www.instagram.com/mahesh_patil_2.0/"
                                         target="_blank">
                                         <FaInstagram className="icons" />
                                     </a>
                                     </div>
                                     <div>
-                                        <a rel="noreferrer"
+                    <a rel="noopener noreferrer"
                                             href="https://www.youtube.com/channel/UCG_fZavdVl_p-9SV1Uklsbg"
                                             target="_blank">
                                             <FaYoutube className="icons" />
