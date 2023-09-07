@@ -3,11 +3,28 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { AppProvider } from './context/productcontext';
+import { FilterContextProvider } from './context/filter_context';
+import { CartProvider } from './context/cart_context';
+import { Auth0Provider } from '@auth0/auth0-react';
+import { REACT_APP_AUTH_DOMAIN, REACT_APP_CLIENT_ID } from './components/config';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <Auth0Provider
+      domain={REACT_APP_AUTH_DOMAIN}
+    clientId={REACT_APP_CLIENT_ID}
+    redirectUri={window.location.origin}>
+    <AppProvider>
+      <FilterContextProvider>
+        <CartProvider>
     <App />
+    </CartProvider>
+    </FilterContextProvider>
+    </AppProvider>
+    </Auth0Provider>
   </React.StrictMode>
 );
 
