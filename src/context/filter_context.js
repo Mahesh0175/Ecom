@@ -1,5 +1,4 @@
-import React from "react";
-import { createContext, useContext, useReducer, useEffect } from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
 import { useProductContext } from "./productcontext";
 import reducer from "../reducer/filterReducer";
 
@@ -26,23 +25,23 @@ export const FilterContextProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // to set the grid view
+  // Set grid view
   const setGridView = () => {
     return dispatch({ type: "SET_GRID_VIEW" });
   };
 
-  // to set the list view
+  // Set list view
   const setListView = () => {
     return dispatch({ type: "SET_LIST_VIEW" });
   };
 
-  // to sorting function
+  // Sorting function
   const sorting = (event) => {
     let userValue = event.target.value;
-    dispatch({ type: "GET_SORT_VALUE", payload: userValue});
+    dispatch({ type: "GET_SORT_VALUE", payload: userValue });
   };
 
-  // update the filter values
+  // Update filter values
   const updateFilterValue = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -50,26 +49,37 @@ export const FilterContextProvider = ({ children }) => {
     return dispatch({ type: "UPDATE_FILTERS_VALUE", payload: { name, value } });
   };
 
-  // to clear the filters
+  // Clear filters
   const clearFilters = () => {
-    return dispatch({ type: "CLEAR_FILTERS" });
+    dispatch({ type: "CLEAR_FILTERS" });
+
+    // Reset grid view and other properties
+    dispatch({ type: "SET_GRID_VIEW" });
+    dispatch({ type: "SORTING_PRODUCTS" }); // Reset sorting after clearing filters
   };
 
-  // to sort the product
-
+  // Update product list when filters or sorting change
   useEffect(() => {
-    dispatch({ type: "FILTER_PRODUCTS"  });
+    dispatch({ type: "FILTER_PRODUCTS" });
     dispatch({ type: "SORTING_PRODUCTS" });
   }, [products, state.sorting_value, state.filters]);
 
-  // to load the products for grid and list view
+  // Load products into filter state
   useEffect(() => {
     dispatch({ type: "LOAD_FILTER_PRODUCTS", payload: products });
   }, [products]);
 
   return (
     <FilterContext.Provider
-      value={{ ...state, setGridView, setListView, sorting, updateFilterValue, clearFilters }}>
+      value={{
+        ...state,
+        setGridView,
+        setListView,
+        sorting,
+        updateFilterValue,
+        clearFilters,
+      }}
+    >
       {children}
     </FilterContext.Provider>
   );
